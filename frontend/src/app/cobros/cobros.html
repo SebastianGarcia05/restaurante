@@ -1,4 +1,12 @@
 <p>cobros a papada pig!</p>
-
-
 <h1>cobroooooss</h1>
+
+<h2>Lista de Cobros</h2>
+<ul>
+    <li *ngFor="let cobro of cobros">
+        Cliente ID: {{ cobro.clienteId }} - 
+        Monto: {{ cobro.monto }} - 
+        Fecha: {{ cobro.fecha }} -
+        Estado: {{ cobro.estado }}
+    </li>
+</ul>
