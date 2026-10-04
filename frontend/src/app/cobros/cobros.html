@@ -1,12 +1,65 @@
-<p>cobros a papada pig!</p>
-<h1>cobroooooss</h1>
+<h2>Gestión de Cobros</h2>
 
-<h2>Lista de Cobros</h2>
-<ul>
-    <li *ngFor="let cobro of cobros">
-        Cliente ID: {{ cobro.clienteId }} - 
-        Monto: {{ cobro.monto }} - 
-        Fecha: {{ cobro.fecha }} -
-        Estado: {{ cobro.estado }}
-    </li>
-</ul>
+<form [formGroup]="cobroForm" (ngSubmit)="agregarCobro()">
+  <mat-form-field>
+    <mat-label>Cliente</mat-label>
+    <mat-select formControlName="clienteId">
+      <mat-option *ngFor="let cliente of clientes" [value]="cliente.id">
+        {{ cliente.nombre }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="cobroForm.get('clienteId')?.hasError('required')">
+      Debes seleccionar un cliente
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Monto</mat-label>
+    <input matInput type="number" formControlName="monto" />
+    <mat-error *ngIf="cobroForm.get('monto')?.hasError('required')">
+      El monto es obligatorio
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Fecha</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="fecha" />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="cobroForm.get('fecha')?.hasError('required')">
+      La fecha es obligatoria
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Descripción</mat-label>
+    <input matInput formControlName="descripcion" />
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">Agregar Cobro</button>
+</form>
+
+<table mat-table [dataSource]="cobros" class="mat-elevation-z8">
+  <ng-container matColumnDef="cliente">
+    <th mat-header-cell *matHeaderCellDef>Cliente</th>
+    <td mat-cell *matCellDef="let cobro">{{ obtenerNombreCliente(cobro.clienteId) }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="monto">
+    <th mat-header-cell *matHeaderCellDef>Monto</th>
+    <td mat-cell *matCellDef="let cobro">{{ cobro.monto }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="fecha">
+    <th mat-header-cell *matHeaderCellDef>Fecha</th>
+    <td mat-cell *matCellDef="let cobro">{{ cobro.fecha | date }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="descripcion">
+    <th mat-header-cell *matHeaderCellDef>Descripción</th>
+    <td mat-cell *matCellDef="let cobro">{{ cobro.descripcion }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

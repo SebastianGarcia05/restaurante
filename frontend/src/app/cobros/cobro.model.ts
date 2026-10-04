@@ -3,5 +3,5 @@ export interface Cobro {
   clienteId: number;   // Relación con el cliente (foreign key)
   monto: number;       // Valor del cobro
   fecha: string;       // Fecha del cobro (ISO string)
-  estado?: string;     // Opcional: "pendiente", "pagado", etc.
+  descripcion?: string;     // Opcional: "pendiente", "pagado", etc.
 }

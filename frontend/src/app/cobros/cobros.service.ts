@@ -5,13 +5,22 @@ import { Cobro } from './cobro.model';
   providedIn: 'root'
 })
 export class CobrosService {
-  private cobros: Cobro[] = [
-    { id: 1, clienteId: 1, monto: 50000, fecha: '2026-09-26', estado: 'pendiente' },
-    { id: 2, clienteId: 2, monto: 75000, fecha: '2026-09-20', estado: 'pagado' },
-    { id: 3, clienteId: 3, monto: 100000, fecha: '2026-09-15', estado: 'pendiente' }
-  ];
+  private cobros: Cobro[] = [];
 
+  constructor() {}
+
+  // Obtener todos los cobros
   getCobros(): Cobro[] {
     return this.cobros;
+  }
+
+  // Agregar un nuevo cobro
+  addCobro(cobro: Cobro): void {
+    this.cobros.push(cobro);
+  }
+
+  // (Opcional) Buscar cobro por ID
+  getCobroById(id: number): Cobro | undefined {
+    return this.cobros.find(c => c.id === id);
   }
 }

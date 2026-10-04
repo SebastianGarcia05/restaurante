@@ -1,0 +1,68 @@
+<h2>Registrar Cliente</h2>
+
+<form (ngSubmit)="guardarCliente()" #clienteForm="ngForm">
+    <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input matInput [(ngModel)]="nuevoCliente.nombre" name="nombre" required>
+    </mat-form-field>
+    
+    
+    <mat-form-field appearance="outline">
+        <mat-label>correo</mat-label>
+        <input matInput [(ngModel)]="nuevoCliente.correo" name="correo" type="email" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Telefono</mat-label>
+        <input matInput [(ngModel)]="nuevoCliente.telefono" name="telefono" type="tel">
+    </mat-form-field>
+    
+  <mat-form-field appearance="outline">
+    <mat-label>Dirección</mat-label>
+    <input matInput [(ngModel)]="nuevoCliente.direccion" name="direccion">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">
+    Guardar Cliente
+  </button>
+</form>
+
+<hr>
+
+<h3>Lista de Clientes</h3>
+<table mat-table [dataSource]="clientes" class="mat-elevation-z8">
+
+  <!-- ID -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> ID </th>
+    <td mat-cell *matCellDef="let cliente"> {{cliente.id}} </td>
+  </ng-container>
+
+  <!-- Nombre -->
+  <ng-container matColumnDef="nombre">
+    <th mat-header-cell *matHeaderCellDef> Nombre </th>
+    <td mat-cell *matCellDef="let cliente"> {{cliente.nombre}} </td>
+  </ng-container>
+
+  <!-- Correo -->
+  <ng-container matColumnDef="correo">
+    <th mat-header-cell *matHeaderCellDef> Correo </th>
+    <td mat-cell *matCellDef="let cliente"> {{cliente.correo}} </td>
+  </ng-container>
+
+  <!-- Teléfono -->
+  <ng-container matColumnDef="telefono">
+    <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+    <td mat-cell *matCellDef="let cliente"> {{cliente.telefono}} </td>
+  </ng-container>
+
+  <!-- Dirección -->
+  <ng-container matColumnDef="direccion">
+    <th mat-header-cell *matHeaderCellDef> Dirección </th>
+    <td mat-cell *matCellDef="let cliente"> {{cliente.direccion}} </td>
+  </ng-container>
+
+  <!-- Header y filas -->
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
